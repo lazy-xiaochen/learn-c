@@ -1,0 +1,132 @@
+/* 设计令牌（需求 5.1）：暗色优先的"专注工作台"。亮色模式用 1px 细边框代替投影。 */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #151619;
+  --surface: #1c1f25;
+  --surface-2: #23272f;
+  --surface-3: #2b3039;
+  --border: #2f343d;
+  --border-strong: #3d434e;
+  --text: #e4e5e9;
+  --text-strong: #ffffff;
+  --text-muted: #9ba1ac;
+  --accent: #00aeda;
+  --accent-hover: #22c3eb;
+  --accent-soft: rgba(0, 174, 218, 0.14);
+  --on-accent: #00161c;
+  --amber: #f5a623;
+  --amber-soft: rgba(245, 166, 35, 0.14);
+  --ok: #3fb950;
+  --ok-soft: rgba(63, 185, 80, 0.14);
+  --err: #f85149;
+  --err-soft: rgba(248, 81, 73, 0.14);
+  --warn: #d29922;
+  --warn-soft: rgba(210, 153, 34, 0.15);
+  /* 难度颜色（需求 3.1：红 / 橙 / 黄 / 绿 / 蓝） */
+  --lv1: #ff6b6b;
+  --lv2: #f28c28;
+  --lv3: #e6cc4c;
+  --lv4: #3fb950;
+  --lv5: #58a6ff;
+  --code-bg: #17191d;
+  --tok-keyword: #ff7ab2;
+  --tok-type: #6bdfff;
+  --tok-string: #ffb86b;
+  --tok-number: #d0bf69;
+  --tok-comment: #7f8794;
+  --tok-meta: #fd8f3f;
+  --tok-func: #a6e3a1;
+  --focus: #00aeda;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #fcfcfc;
+  --surface: #ffffff;
+  --surface-2: #f4f5f7;
+  --surface-3: #eceef1;
+  --border: #e2e4e8;
+  --border-strong: #cfd3d9;
+  --text: #1c1f25;
+  --text-strong: #0b0c0e;
+  --text-muted: #5a606a;
+  --accent: #00799a;
+  --accent-hover: #006582;
+  --accent-soft: rgba(0, 121, 154, 0.1);
+  --on-accent: #ffffff;
+  --amber: #a45f00;
+  --amber-soft: rgba(245, 166, 35, 0.16);
+  --ok: #1a7f37;
+  --ok-soft: rgba(26, 127, 55, 0.1);
+  --err: #cf222e;
+  --err-soft: rgba(207, 34, 46, 0.08);
+  --warn: #8a5d00;
+  --warn-soft: rgba(210, 153, 34, 0.14);
+  --lv1: #d1242f;
+  --lv2: #d36200;
+  --lv3: #8f7a00;
+  --lv4: #1a7f37;
+  --lv5: #0969da;
+  --code-bg: #f7f8fa;
+  --tok-keyword: #ad3da4;
+  --tok-type: #0b6e99;
+  --tok-string: #b3402a;
+  --tok-number: #6c5900;
+  --tok-comment: #6a737d;
+  --tok-meta: #8a4600;
+  --tok-func: #2f6f1f;
+  --focus: #00799a;
+}
+
+:root {
+  --font-sans: system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei UI', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
+  /* 等宽字体没有中文字形时回退到系统黑体，避免注释里的中文显示成宋体 */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Cascadia Mono', Consolas, 'Microsoft YaHei UI', 'PingFang SC', monospace;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --topbar-h: 52px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* 所有可交互元素都有清晰的键盘焦点轮廓（需求 5.3） */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 代码区关闭连字：初学者需要看到真实的 != 和 >=，而不是合成的 ≠ ≥ */
+code,
+pre,
+kbd,
+.mono,
+.cm-editor {
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0, 'calt' 0;
+}

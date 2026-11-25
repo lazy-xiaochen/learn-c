@@ -1,0 +1,13 @@
+# 默认按文本处理，自动识别二进制
+* text=auto
+
+# 双击运行的脚本必须是 CRLF，否则 Windows 下会失效
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# 二进制资源不要做换行转换
+*.png binary
+*.ico binary
+*.exe binary
+*.o binary

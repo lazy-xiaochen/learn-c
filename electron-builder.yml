@@ -1,0 +1,58 @@
+# electron-builder 配置
+# 打包命令：npm run dist
+# 产物：release/c-learn-<版本>-setup.exe（Windows x64 安装包，按用户安装，不需要管理员权限）
+
+appId: com.clearn.desktop
+productName: C-Learn
+copyright: Copyright © 2026 c-learn contributors
+
+directories:
+  # 输出到项目上一级目录（本机即 D:\c-learn-release）。
+  # 放在项目外是刻意的：本开发工作区被 DSH 判题沙箱打了低完整性标签，
+  # 新生成的 exe 在该目录下无法正常写临时文件，会导致 NSIS 打包最后一步失败。
+  output: ../c-learn-release
+  buildResources: build
+
+# 应用自身代码；编译工具链与内容通过 extraResources 放到 resources/ 下
+files:
+  - package.json
+  - dist/**/*
+  - electron/**/*
+  - server/**/*
+  - "!**/*.map"
+
+# 不开 asar：后端服务用 utilityProcess 直接 fork server/service.js，
+# 保持真实文件路径最稳妥（这个应用不涉及代码保护）。
+asar: false
+
+extraResources:
+  # 课程内容（server/content.js 读 resources/content）
+  - from: content/build
+    to: content
+  # 判题沙箱（server/judge/paths.js 读 resources/native）
+  - from: native/build
+    to: native
+  # 精简版编译器（paths.js 读 resources/toolchain/llvm-mingw-*-ucrt-x86_64）
+  - from: dist-toolchain
+    to: toolchain
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+  artifactName: c-learn-${version}-setup.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: C 语言学习平台
+  uninstallDisplayName: C 语言学习平台
+  installerLanguages:
+    - zh_CN
+  deleteAppDataOnUninstall: false

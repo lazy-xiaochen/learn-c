@@ -1,0 +1,31 @@
+# 依赖与构建产物
+node_modules/
+dist/
+dist-electron/
+release/
+native/build/
+
+# 编译工具链（体积大，开发者按 README 自行下载）
+toolchain/
+
+# 打包用的精简工具链（由 npm run dist 自动生成）
+dist-toolchain/
+
+# 内容校验缓存（构建产物 content/build/*.json 需要提交，应用直接读取）
+content/build/.verify-cache.json
+
+# 临时文件
+.tmp/
+*.log
+*.exe
+*.o
+*.obj
+*.pdb
+
+# 编辑器与系统
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
